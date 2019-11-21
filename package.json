@@ -1,0 +1,16 @@
+{
+  "name": "devcamp-api",
+  "version": "1.0.0",
+  "description": "API",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=production node server",
+    "dev":"nodemon server"
+  },
+  "author": "A Ez",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  }
+}
