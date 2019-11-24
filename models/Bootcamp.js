@@ -74,13 +74,31 @@ const BootcampSchema = new mongoose.Schema({
         type:Date,
         default:Date.now
     }
+},{
+    toJSON:{virtuals:true},
+    toObject:{virtuals:true}
+});
+
+
+//Delete courses ascociated with bootcamp
+BootcampSchema.pre('remove',async (next)=>{
+await this.model('Course').deleteMany({bootcamp:this._id});
+next();
 });
 
 //create bootcamp slug from name
-
 BootcampSchema.pre('save',function(next){
 this.slug = slugify(this.name,{lower:true});
 next();
+});
+
+
+//virtual
+BootcampSchema.virtual('courses',{
+    ref:'Course',
+    localField:'_id',
+    foreignField:'bootcamp',
+    justOne:false
 });
 
 module.exports = mongoose.model("Bootcamp",BootcampSchema);
